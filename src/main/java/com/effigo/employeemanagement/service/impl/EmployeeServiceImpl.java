@@ -2,13 +2,13 @@ package com.effigo.employeemanagement.service.impl;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
-
+import com.effigo.employeemanagement.dto.mapper.EmployeeMapper;
+import com.effigo.employeemanagement.dto.request.EmployeeRequest;
+import com.effigo.employeemanagement.dto.response.EmployeeResponse;
 import com.effigo.employeemanagement.entity.Entityclass;
 import com.effigo.employeemanagement.repository.EmployeeRepository;
 import com.effigo.employeemanagement.service.EmployeeService;
-
 @Service
 class EmployeeServiceImpl implements EmployeeService{
 
@@ -46,5 +46,24 @@ class EmployeeServiceImpl implements EmployeeService{
 		// TODO Auto-generated method stub
 		employeeRepository.deleteById(id);
 	}
+	  @Override
+	    public EmployeeResponse saveEmployee(EmployeeRequest employeeRequest) {
+	        Entityclass employeeEntity = EmployeeMapper.MAPPER.fromRequestToEntity(employeeRequest);
+	        employeeRepository.save(employeeEntity);
+	        return EmployeeMapper.MAPPER.fromEntityToResponse(employeeEntity);
+	    }
+
+	    @Override
+	    public EmployeeResponse updateEmployee(EmployeeRequest employeeRequest, Long id) {
+
+	        Optional<Entityclass> checkExistingEmployee = findById(id);
+	        if (! checkExistingEmployee.isPresent())
+	            throw new RuntimeException("Employee Id "+ id + " Not Found!");
+
+	        Entityclass employeeEntity = EmployeeMapper.MAPPER.fromRequestToEntity(employeeRequest);
+	        employeeEntity.setId(id);
+	        employeeRepository.save(employeeEntity);
+	        return EmployeeMapper.MAPPER.fromEntityToResponse(employeeEntity);
+	    }
 
 }

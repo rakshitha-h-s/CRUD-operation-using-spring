@@ -24,6 +24,7 @@ private final EmployeeService employeeService;
 public EmployeeController(EmployeeService employeeService) {
 	this.employeeService = employeeService;
 }
+@GetMapping
 public List<Entityclass> findAllEmployee()
 {
 	return employeeService.findAllEmployee();

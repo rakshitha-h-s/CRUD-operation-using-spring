@@ -41,6 +41,12 @@
 			<artifactId>employee2-management</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+	<dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>1.4.2.Final</version> <!-- Replace with the latest version -->
+    </dependency>
+
 	</dependencies>
 
 	<build>
